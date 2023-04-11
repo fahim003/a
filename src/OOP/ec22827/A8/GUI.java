@@ -11,7 +11,7 @@ class GUI implements Visitor{
 
     JFrame frame = new JFrame();
 
-    int currentGold = 0;
+    int currentGold = 5;
     private Scanner in;
     private int purse;
     private Item[] items;
@@ -24,10 +24,9 @@ class GUI implements Visitor{
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel goldCounter = new JPanel();
-        JTextArea goldText = new JTextArea("gold: " + currentGold);
-        goldText.setForeground(Color.black);
-        goldCounter.add(goldText);
+        JLabel goldLabel = new JLabel("Gold: " + currentGold);
+        goldLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        frame.getContentPane().add(goldLabel, BorderLayout.NORTH);
 
         JButton northButton = new JButton("North");
         JButton southButton = new JButton("South");
@@ -35,6 +34,8 @@ class GUI implements Visitor{
         JButton westButton = new JButton("West");
 
         // Create a panel to hold the buttons
+
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(northButton);
         buttonPanel.add(southButton);
         buttonPanel.add(eastButton);
@@ -43,8 +44,7 @@ class GUI implements Visitor{
 
 
         // Add the panel to the frame
-        frame.getContentPane().add(goldCounter);
-        //frame.getContentPane().add(buttonPanel);
+        frame.getContentPane().add(buttonPanel);
         frame.setVisible(true);
 
 
