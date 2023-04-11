@@ -5,23 +5,48 @@ import javax.swing.*;
 import java.io.InputStream;
 import java.util.Scanner;
 
-class GUI implements Visitor {
+class GUI implements Visitor{
 
     private PrintStream out;
 
     JFrame frame = new JFrame();
+
+    int currentGold = 0;
     private Scanner in;
     private int purse;
     private Item[] items;
     private int next;
+    private JPanel buttonPanel = new JPanel();
 
     public GUI(PrintStream ps, InputStream is) {
 
         frame.setTitle("ec22827");
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground( Color.black );
+
+        JPanel goldCounter = new JPanel();
+        JTextArea goldText = new JTextArea("gold: " + currentGold);
+        goldText.setForeground(Color.black);
+        goldCounter.add(goldText);
+
+        JButton northButton = new JButton("North");
+        JButton southButton = new JButton("South");
+        JButton eastButton = new JButton("East");
+        JButton westButton = new JButton("West");
+
+        // Create a panel to hold the buttons
+        buttonPanel.add(northButton);
+        buttonPanel.add(southButton);
+        buttonPanel.add(eastButton);
+        buttonPanel.add(westButton);
+
+
+
+        // Add the panel to the frame
+        frame.getContentPane().add(goldCounter);
+        //frame.getContentPane().add(buttonPanel);
         frame.setVisible(true);
+
 
 
 
@@ -116,4 +141,5 @@ class GUI implements Visitor {
 
         return t;
     }
+
 }
