@@ -9,18 +9,9 @@ class Room_ec22827 extends Room {
         visitor.tell("Joking, i'm taking it back.");
         visitor.takeGold(5);
 
+        visitor.tell("Guess which direction is the exit by clicking one of the buttons above. You have one try.");
 
-
-        char [] exits = {'n' , 's' , 'w' , 'e'};
-        char guess = visitor.getChoice("Guess which direction is the exit. You have one try.", exits);
-        if (guess == exits[3]){
-            visitor.tell("Correct!");
-            return Direction.TO_EAST;
-        }else {
-            visitor.tell("Wrong! You may leave the room from where you came from");
-            return entrance.opposite(entrance);
-        }
-
+        return entrance;
     }
 
 }

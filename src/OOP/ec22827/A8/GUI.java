@@ -1,5 +1,7 @@
 package OOP.ec22827.A8;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.PrintStream;
 import javax.swing.*;
 import java.io.InputStream;
@@ -16,7 +18,13 @@ class GUI implements Visitor{
     private int purse;
     private Item[] items;
     private int next;
+    JLabel goldLabel = new JLabel("Gold: " + currentGold);
+    String instruction;
+    JTextArea instructionsText = new JTextArea(instruction);
     private JPanel buttonPanel = new JPanel();
+    private JButton button1;
+    private JPanel panel1;
+
 
     public GUI(PrintStream ps, InputStream is) {
 
@@ -24,9 +32,11 @@ class GUI implements Visitor{
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JLabel goldLabel = new JLabel("Gold: " + currentGold);
         goldLabel.setHorizontalAlignment(SwingConstants.LEFT);
         frame.getContentPane().add(goldLabel, BorderLayout.NORTH);
+
+        frame.getContentPane().add(instructionsText, BorderLayout.SOUTH);
+
 
         JButton northButton = new JButton("North");
         JButton southButton = new JButton("South");
@@ -40,6 +50,9 @@ class GUI implements Visitor{
         buttonPanel.add(southButton);
         buttonPanel.add(eastButton);
         buttonPanel.add(westButton);
+
+
+
 
 
 
@@ -59,6 +72,41 @@ class GUI implements Visitor{
         purse = 0;
         items = new Item[1000];
         next = 0;
+        eastButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                tell("Correct!");
+                giveGold(5);
+
+            }
+        });
+
+        northButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                tell("Incorrecct!");
+                takeGold(5);
+
+            }
+        });
+
+        westButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                tell("incorrect!");
+                takeGold(5);
+
+            }
+        });
+
+        southButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                tell("Incorrect!");
+                takeGold(5);
+
+            }
+        });
     }
 
 
@@ -66,7 +114,9 @@ class GUI implements Visitor{
 
     public void tell(String m) {
         out.println(m);
+        instructionsText.append(m+"\n");
     }
+
 
     public char getChoice(String d, char[] a) {
         out.println(d);
@@ -121,6 +171,12 @@ class GUI implements Visitor{
         out.println("You are given "+n+" gold pieces.");
         purse += n;
         out.println("You now have "+purse+" pieces of gold.");
+
+
+        currentGold += n;
+        goldLabel.setText("Gold: " + currentGold);
+        tell("5 Gold has been taken given to you");
+
     }
 
     public int takeGold(int n) {
@@ -139,7 +195,12 @@ class GUI implements Visitor{
         purse -= t;
         out.println("You now have "+purse+" pieces of gold.");
 
+        currentGold -= n;
+        goldLabel.setText("Gold: " + currentGold );
+        tell("5 Gold has been taken from you");
+
         return t;
     }
+
 
 }
